@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/sentiment")
+//@RequestMapping("/sentiment")
+@RequestMapping("/analyze")
 @Slf4j
 public class SentimentController {
 
