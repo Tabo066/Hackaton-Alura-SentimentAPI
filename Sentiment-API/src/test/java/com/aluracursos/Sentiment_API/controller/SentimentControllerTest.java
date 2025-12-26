@@ -1,7 +1,7 @@
 package com.aluracursos.Sentiment_API.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.aluracursos.Sentiment_API.Sentiment.DTO.SentimentRequest;
+import com.aluracursos.Sentiment_API.dto.SentimentRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
