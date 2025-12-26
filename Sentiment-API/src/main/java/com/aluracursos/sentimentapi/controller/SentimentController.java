@@ -1,7 +1,7 @@
-package com.aluracursos.Sentiment_API.controller;
+package com.aluracursos.sentimentapi.controller;
 
-import com.aluracursos.Sentiment_API.dto.SentimentRequest;
-import com.aluracursos.Sentiment_API.dto.SentimentResponse;
+import com.aluracursos.sentimentapi.dto.SentimentRequest;
+import com.aluracursos.sentimentapi.dto.SentimentResponse;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

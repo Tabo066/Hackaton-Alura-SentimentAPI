@@ -1,4 +1,4 @@
-package com.aluracursos.Sentiment_API.dto;
+package com.aluracursos.sentimentapi.dto;
 
 
 import jakarta.validation.constraints.NotBlank;

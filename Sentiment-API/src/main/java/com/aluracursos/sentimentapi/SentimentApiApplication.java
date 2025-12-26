@@ -1,4 +1,4 @@
-package com.aluracursos.Sentiment_API;
+package com.aluracursos.sentimentapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

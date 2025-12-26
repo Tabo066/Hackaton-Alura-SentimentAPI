@@ -1,4 +1,4 @@
-package com.aluracursos.Sentiment_API;
+package com.aluracursos.sentimentapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
