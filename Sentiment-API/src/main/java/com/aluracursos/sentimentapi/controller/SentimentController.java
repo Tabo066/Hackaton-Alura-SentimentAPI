@@ -23,10 +23,11 @@ public class SentimentController {
     public ResponseEntity<SentimentResponse> analyze(
             @Valid @RequestBody SentimentRequest request) {
 
-        log.info("Recibido texto: {}", request.getText());
+        log.info("Solicitud de análisis de sentimiento recibida");
 
         SentimentResponse response =
-                sentimentService.analyze(request.getText());
+                //sentimentService.analyze(request.getText());
+                sentimentService.analyze(request);
 
         log.info("Respuesta enviada: {}", response);
 

@@ -8,6 +8,8 @@ import lombok.Data;
 @Data
 public class SentimentRequest {
     @NotBlank(message = "El campo 'text' no puede estar vacío")
-    @Size(min = 10, message = "El texto debe tener al menos 10 caracteres")
+    @Size(  min = 10,
+            max=500,
+            message = "El texto debe tener al menos 10 caracteres")
     private String text;
 }
