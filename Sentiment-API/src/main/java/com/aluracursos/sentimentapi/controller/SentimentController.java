@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
+
 @RestController
 @RequestMapping("/analyze")
 @Slf4j
@@ -29,7 +31,10 @@ public class SentimentController {
                 //sentimentService.analyze(request.getText());
                 sentimentService.analyze(request);
 
-        log.info("Respuesta enviada: {}", response);
+        log.info( "Respuesta enviada: prediccion={}, probabilidad={}",
+                        response.getPrediccion(),
+                        response.getProbabilidad()
+                 );
 
         return ResponseEntity.ok(response);
     }
