@@ -131,3 +131,27 @@ El sistema de logging permite monitorear el flujo básico de la aplicación y fa
 
 
 ---
+
+### 🚨 Logging de errores de validación (400)
+La aplicación implementa un manejo centralizado de errores de validación para las solicitudes inválidas, registrando información relevante en los logs y devolviendo respuestas claras al cliente.
+🔧 Manejo de errores
+•	Se utiliza @RestControllerAdvice para capturar errores de forma global.
+•	Los errores de validación se interceptan mediante MethodArgumentNotValidException.
+•	Se construye una respuesta estructurada que indica:
+o	El campo que falló la validación
+o	El mensaje de error definido en el DTO
+
+### 🧾 Logs de validación
+•	Cuando ocurre un error de validación, se registra un log a nivel WARN.
+•	El log contiene los campos inválidos y sus mensajes asociados.
+•	No se exponen stacktraces ni información sensible en los logs.
+
+Ejemplo de log:
+WARN  GlobalExceptionHandler - Error de validación en request: {text=El texto debe tener al menos 10 caracteres}
+
+### ✅ Buenas prácticas aplicadas
+•	Separación de responsabilidades entre controladores y manejo de excepciones.
+•	Uso del nivel de log adecuado (WARN para errores del cliente).
+•	Respuestas HTTP estándar (400 Bad Request).
+•	Código limpio, mantenible y fácil de extender.
+---
