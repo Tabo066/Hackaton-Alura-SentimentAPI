@@ -3,6 +3,8 @@ package com.aluracursos.sentimentapi.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.web.ErrorResponse;
+import com.aluracursos.sentimentapi.exception.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -38,5 +40,20 @@ public class GlobalExceptionHandler{
                 //Estandar REST
                 .status(HttpStatus.BAD_REQUEST)
                 .body(errors);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleInternalError(Exception ex) {
+
+        log.error("Error interno inesperado en SentimentAPI", ex);
+
+        ErrorResponse error = new ErrorResponse(
+                "Error interno del servidor",
+                "Ocurrió un error inesperado...intente más tarde."
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(error);
     }
 }

@@ -17,4 +17,18 @@ public class SentimentService {
         // Paso 3: construir respuesta
         return new SentimentResponse(prediccion, probabilidad);
     }
+
+
+
 }
+
+/*    // ⚠️ SOLO PARA PRUEBA DE LOGS 500
+public SentimentResponse analyze(SentimentRequest request) {
+
+        // ⚠️ SOLO PARA PRUEBA DE LOGS 500
+        throw new RuntimeException("Error interno de prueba");
+
+    }
+*
+*
+* */
