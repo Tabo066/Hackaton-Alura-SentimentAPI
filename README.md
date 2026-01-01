@@ -155,3 +155,13 @@ WARN  GlobalExceptionHandler - Error de validación en request: {text=El texto d
 •	Respuestas HTTP estándar (400 Bad Request).
 •	Código limpio, mantenible y fácil de extender.
 ---
+### 🔴 Manejo de errores internos (500)
+
+La aplicación implementa un manejo global de errores internos mediante @RestControllerAdvice, capturando excepciones no controladas (Exception.class).
+Cuando ocurre un error 500, el sistema registra un log a nivel ERROR, incluyendo el stacktrace completo únicamente en los logs para facilitar el diagnóstico.
+
+La respuesta al cliente es controlada y segura, devolviendo un mensaje genérico y amigable, sin exponer detalles internos del sistema.
+Este enfoque garantiza una correcta trazabilidad de errores en el backend y una experiencia consistente para el consumidor de la API.
+
+---
+
