@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "03d7db10-6fe2-4121-9d10-e14f87a6bc6b",
+		"name": "SentimentAPI-Local-EXPORT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11534144"
+	},
+	"item": [
+		{
+			"name": "POST-Analyze(positivo)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"Este producto es excelente, superó mis expectativas y lo recomiendo totalmente\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/analyze",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"analyze"
+					]
+				},
+				"description": "Pruebas locales de endpoint Post/analyze (positivo)  \ntexto positivo"
+			},
+			"response": []
+		},
+		{
+			"name": "POST-Analyze(input_invalido)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"Malo\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/analyze",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"analyze"
+					]
+				},
+				"description": "Pruebas locales de endpoint Post/analyze (input_invalido)\n\ntexto input invalido"
+			},
+			"response": []
+		},
+		{
+			"name": "POST-Analyze(negativo)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"Muy mala experiencia, el servicio fue terrible\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/analyze",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"analyze"
+					]
+				},
+				"description": "Pruebas locales de endpoint Post/analyze (negativo)\n\ntexto negativo"
+			},
+			"response": []
+		}
+	]
+}
