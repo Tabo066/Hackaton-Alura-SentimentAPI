@@ -52,6 +52,12 @@
 				<scope>test</scope>
 			</dependency>
 
+		    <!--No reemplaza spring-boot-starter-web
+📌                 Solo habilita WebClient-->
+		    <dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-webflux</artifactId>
+		     </dependency>
 	</dependencies>
 
 	<build>

@@ -164,4 +164,15 @@ La respuesta al cliente es controlada y segura, devolviendo un mensaje genérico
 Este enfoque garantiza una correcta trazabilidad de errores en el backend y una experiencia consistente para el consumidor de la API.
 
 ---
+### 🧪 Colección Postman (pruebas locales)
+El proyecto incluye una colección Postman local para probar el endpoint POST /analyze de la API de análisis de sentimiento.
+La colección permite validar el comportamiento del servicio sin depender de integraciones externas.
 
+### Casos incluidos
+•	Positivo: entrada válida con texto de sentimiento positivo.
+•	Negativo: entrada válida con texto de sentimiento negativo.
+•	Inválido (400): entrada que no cumple las validaciones definidas en los DTOs.
+La colección está exportada en formato Postman Collection v2.1 y se encuentra en:
+src/test/resources/postman/
+Puede utilizarse para pruebas manuales, validación funcional del endpoint y como referencia para futuras automatizaciones o integraciones.
+---
