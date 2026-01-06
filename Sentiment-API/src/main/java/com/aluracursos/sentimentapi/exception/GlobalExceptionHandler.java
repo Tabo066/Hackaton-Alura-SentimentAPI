@@ -4,15 +4,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.web.ErrorResponse;
-import com.aluracursos.sentimentapi.exception.ErrorResponse;
+//import com.aluracursos.sentimentapi.exception.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+//import org.springframework.http.HttpStatus;
+//import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice
 //•	Intercepta errores globalmente
@@ -54,6 +57,22 @@ public class GlobalExceptionHandler{
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(error);
+    }
+
+    @ExceptionHandler(DsServiceUnavailableException.class)
+    public ResponseEntity<ErrorResponse> handleDsServiceUnavailable(
+                                         DsServiceUnavailableException ex) {
+
+        log.error("Fallo al comunicarse con el servicio DS", ex);
+
+        ErrorResponse error = new ErrorResponse(
+                "Bad Gateway",
+                "Servicio de análisis no disponible. Intente más tarde."
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_GATEWAY)
                 .body(error);
     }
 }

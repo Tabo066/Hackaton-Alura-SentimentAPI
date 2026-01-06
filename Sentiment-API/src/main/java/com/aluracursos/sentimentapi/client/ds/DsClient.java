@@ -2,16 +2,16 @@ package com.aluracursos.sentimentapi.client.ds;
 
 import com.aluracursos.sentimentapi.client.ds.dto.DsPredictRequest;
 import com.aluracursos.sentimentapi.client.ds.dto.DsPredictResponse;
+import com.aluracursos.sentimentapi.exception.DsServiceUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-
 import java.time.Duration;
 
-@Component
 @Slf4j
+@Component
 public class DsClient {
 
     private final WebClient webClient;
@@ -32,37 +32,27 @@ public class DsClient {
                     .bodyToMono(DsPredictResponse.class)
                     .timeout(Duration.ofSeconds(5))
                     .block();
-        }
-        catch(WebClientRequestException ex){
-            //Error de conexion / timeout
-            log.error("Error de conexion con servicio DS", ex);
-            throw new RuntimeException("Servicio de analisis no disponible");
-        }
-        catch(WebClientResponseException ex){
-            //Error HTTP(4xx / 5xx desde DS
-            log.error("Error de respuesta desde DS:status={}", ex.getStatusCode(), ex);
-            throw new RuntimeException("Error al procesar analisis de sentimiento");
+        }catch(WebClientRequestException ex){
+            //DS caido / timeout / error de red
+            log.error("Error de conexion o timeout al llamar a DS", ex);
+            throw new DsServiceUnavailableException(
+                         "Servicio de analisis NO disponible",
+                          ex
+                      );
+        }catch(WebClientResponseException ex){
+            //DS respondio con error HTTP(4xx / 5xx)
+            log.error("DS respondio con error HTTP. status={}, body={}",
+                       ex.getStatusCode(),
+                       ex.getResponseBodyAsString(),
+                       ex
+                      );
+            throw new DsServiceUnavailableException("Servicio de analisis NO disponible",
+                                                     ex
+                                                   );
         }
     }
 }
 
 
 
-/* se borro WebclientConfig, por que estaba en la ruta test
-@Component
-public class DsClient {
 
-    private final WebClient dsWebClient;
-
-    public DsClient(@Qualifier("dsWebClient") WebClient dsWebClient){
-        this.dsWebClient = dsWebClient;
-    }*/
-
-
-
-    /* TEST
-   public DsPredictResponse predict(DsPredictRequest request){
-        // ⚠️ implementación real en el siguiente paso
-        return null;
-    }
-}*/
