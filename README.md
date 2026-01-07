@@ -198,3 +198,16 @@ o	Respuestas HTTP 4xx / 5xx desde DS
 •	Se registran logs a nivel ERROR con información suficiente para diagnóstico interno.
 •	Las pruebas se realizaron mediante Postman, simulando el servicio DS caído.
 ---
+### 🧪 Tests de Integración (Actividad 1.8)
+
+Se implementaron tests de integración utilizando **MockMvc** y **WireMock** para validar la comunicación con el servicio externo de Data Science (DS).
+
+#### Escenarios cubiertos:
+- ✅ DS disponible → respuesta 200 OK con predicción y probabilidad
+- ❌ DS no disponible → respuesta 502 Bad Gateway controlada
+
+Estos tests aseguran:
+- Manejo correcto de errores externos
+- Resiliencia ante fallos del servicio DS
+- Cumplimiento del contrato REST
+---
