@@ -176,3 +176,25 @@ La colección está exportada en formato Postman Collection v2.1 y se encuentra 
 src/test/resources/postman/
 Puede utilizarse para pruebas manuales, validación funcional del endpoint y como referencia para futuras automatizaciones o integraciones.
 ---
+### 🔌 Integración con Servicio de Data Science (DS)
+La API implementa un cliente HTTP para comunicarse con el servicio de Data Science encargado de realizar la predicción de sentimiento, junto con un manejo robusto de errores para garantizar estabilidad y una experiencia adecuada al cliente.
+
+#### Cliente HTTP hacia DS (Actividad 1.6)
+•	Se implementó un cliente HTTP usando Spring WebClient para consumir el endpoint del servicio DS:
+•	POST http://localhost:8000/predict
+•	Se definió un timeout de 5 segundos para evitar bloqueos en caso de respuestas lentas o caídas del servicio.
+•	El cliente encapsula la lógica de comunicación con DS y desacopla la API del detalle de implementación del modelo.
+•	La integración puede probarse aun cuando el servicio DS no esté disponible,
+permitiendo avanzar en el desarrollo de la API.
+
+#### Manejo de errores del servicio DS (Actividad 1.7)
+•	Se implementó manejo de errores para todos los fallos al consumir el servicio DS:
+o	Servicio caído o puerto no disponible
+o	Timeout de conexión
+o	Respuestas HTTP 4xx / 5xx desde DS
+•	Los errores del cliente HTTP se encapsulan en una excepción de dominio (DsServiceUnavailableException), evitando la propagación de excepciones técnicas.
+•	Se agregó un manejador global de excepciones (@RestControllerAdvice) que traduce estos fallos a una respuesta HTTP 502 (Bad Gateway).
+•	La API devuelve un mensaje amigable y controlado al cliente, sin exponer detalles internos del sistema.
+•	Se registran logs a nivel ERROR con información suficiente para diagnóstico interno.
+•	Las pruebas se realizaron mediante Postman, simulando el servicio DS caído.
+---

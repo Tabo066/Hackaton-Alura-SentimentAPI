@@ -4,6 +4,7 @@ import com.aluracursos.sentimentapi.client.ds.dto.DsPredictRequest;
 import com.aluracursos.sentimentapi.client.ds.dto.DsPredictResponse;
 import com.aluracursos.sentimentapi.exception.DsServiceUnavailableException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
@@ -16,11 +17,21 @@ public class DsClient {
 
     private final WebClient webClient;
 
-    public DsClient() {
+   /* public DsClient() {
         this.webClient = WebClient.builder()
                 .baseUrl("http://localhost:8000")
                 .build();
+    }*/
+
+    public DsClient(
+            WebClient.Builder webClientBuilder,
+            @Value("${ds.api.base-url}") String baseUrl
+    ) {
+        this.webClient = webClientBuilder
+                .baseUrl(baseUrl)
+                .build();
     }
+
 
     public DsPredictResponse predict(DsPredictRequest request) {
 

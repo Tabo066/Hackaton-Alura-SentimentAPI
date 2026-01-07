@@ -21,6 +21,7 @@ public class SentimentService {
                 dsClient.predict(new DsPredictRequest(request.getText()));
         return new SentimentResponse(
                 dsResponse.getLabel(),
+                //dsResponse.getSentimiento(),
                 dsResponse.getProbability()
         );
     }
