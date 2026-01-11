@@ -55,11 +55,8 @@ public class GlobalExceptionHandler{
     @ExceptionHandler(DsServiceUnavailableException.class)
     public ResponseEntity<ErrorResponse> handleDsServiceUnavailable(
                                          DsServiceUnavailableException ex) {
-
-        log.error(//agrgando trace_idd
-           "Fallo al comunicarse con el servicio DS. trace_id={}",
-                ex.getTraceId(),
-                ex);
+        //trace_idd ya esta em MDC
+        log.error("Fallo al comunicarse con el servicio DS", ex);
 
         ErrorResponse error = new ErrorResponse(
                 "Bad Gateway",

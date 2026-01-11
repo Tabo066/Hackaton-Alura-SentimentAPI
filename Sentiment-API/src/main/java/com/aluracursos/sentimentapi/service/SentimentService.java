@@ -30,7 +30,6 @@ public class SentimentService {
             log.error("Error calling DS service", ex);
             throw new DsServiceUnavailableException(
                     "Error al comunicarse con el servicio DS",
-                    null, //traceId
                     ex
             );
         }

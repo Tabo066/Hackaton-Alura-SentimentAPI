@@ -3,8 +3,8 @@
 <configuration>
 
     <!-- Formato del log. define como se ve el log-->
-    <property name="LOG_PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n"/>
+        <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss} %-5level [trace_id=%X{trace_id}] [%thread] %logger{36} - %msg%n"/>
 
     <!-- Appender a consola, indica que los logs se mostraran en consola -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
