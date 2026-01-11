@@ -48,6 +48,7 @@ public class DsClient {
             log.error("Error de conexion o timeout al llamar a DS", ex);
             throw new DsServiceUnavailableException(
                          "Servicio de analisis NO disponible",
+                          null,//trace_id(aun no disponible)
                           ex
                       );
         }catch(WebClientResponseException ex){
@@ -57,9 +58,11 @@ public class DsClient {
                        ex.getResponseBodyAsString(),
                        ex
                       );
-            throw new DsServiceUnavailableException("Servicio de analisis NO disponible",
-                                                     ex
-                                                   );
+            throw new DsServiceUnavailableException(
+                          "Servicio de analisis NO disponible",
+                          null, //trace_id(aun no disponible)
+                          ex
+                      );
         }
     }
 }

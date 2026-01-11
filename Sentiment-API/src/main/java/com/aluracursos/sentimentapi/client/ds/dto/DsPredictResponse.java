@@ -9,13 +9,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DsPredictResponse {
-
-    @JsonProperty("texto")
-    private String label;
+    private String texto;
     private String sentimiento;
-    //private Double confidence;
-    @JsonProperty("probabilidad")
-    private Double probability;
+    private Double probabilidad;
     private String modelo;
+    @JsonProperty("trace_id")
+    private String traceId;
 }
 

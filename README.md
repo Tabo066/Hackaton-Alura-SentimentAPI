@@ -211,3 +211,24 @@ Estos tests aseguran:
 - Resiliencia ante fallos del servicio DS
 - Cumplimiento del contrato REST
 ---
+## Integración con servicio de Data Science (DS) o
+
+### Observabilidad y manejo de errores
+
+Integración con el servicio de Data Science (DS)
+La SentimentAPI consume un servicio externo de análisis de sentimientos desarrollado por el equipo de Data Science (DS).
+Para evitar acoplamiento directo, la aplicación mantiene separados:
+•	Contrato externo (DS): representado por DTOs específicos (DsPredictRequest, DsPredictResponse).
+•	Contrato público de la API: estable y orientado a clientes (SentimentRequest, SentimentResponse).
+La adaptación entre ambos contratos se realiza en la capa de servicio, permitiendo que cambios en el proveedor externo no impacten a los consumidores de la API.
+
+## Manejo de trace_id
+El servicio de DS retorna un identificador trace_id por request, el cual es utilizado internamente para:
+•	Logging de respuestas exitosas.
+•	Trazabilidad y debugging en caso de errores.
+•	Correlación de incidentes con el equipo de DS.
+
+Actualmente, el trace_id:
+•	No se expone en el body de la respuesta.
+•	Se registra en logs y excepciones de dominio.
+•	Está preparado para futuras mejoras de observabilidad.
