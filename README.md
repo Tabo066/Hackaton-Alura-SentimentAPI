@@ -232,3 +232,23 @@ Actualmente, el trace_id:
 •	No se expone en el body de la respuesta.
 •	Se registra en logs y excepciones de dominio.
 •	Está preparado para futuras mejoras de observabilidad.
+---
+### 🔍 Observabilidad y manejo de errores
+
+Se implementó un mecanismo de trazabilidad por request mediante trace_id.
+
+El trace_id se genera o propaga desde el header HTTP X-Trace-Id.
+
+Se inyecta el trace_id en el contexto de logging usando SLF4J MDC, permitiendo que todos los logs del request lo incluyan automáticamente.
+
+El trace_id se devuelve siempre en el response como header HTTP, facilitando la correlación entre cliente y logs del servidor.
+
+El manejo de errores se centraliza en un GlobalExceptionHandler, evitando lógica duplicada en los controladores.
+
+Las excepciones de dominio se mantienen limpias y desacopladas de aspectos técnicos como logging o tracing.
+
+Los detalles técnicos (timeouts, errores HTTP, fallas de red) se registran únicamente en los logs.
+
+La API queda preparada para manejar fallas transitorias del servicio DS y para futuras mejoras de observabilidad y resiliencia.
+
+---

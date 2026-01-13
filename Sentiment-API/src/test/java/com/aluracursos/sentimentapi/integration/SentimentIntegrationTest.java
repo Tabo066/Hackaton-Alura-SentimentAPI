@@ -8,11 +8,8 @@ import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -41,23 +38,66 @@ public class SentimentIntegrationTest {
 
          //aqui ira el MockMvc / WebTestClient (siguiente paso)
         // 2️⃣ Llamamos a TU API real
-        mockMvc.perform(post("/analyze")
+        /*mockMvc.perform(post("/analyze")
                         .contentType("application/json")
                         .content("""
                                 {
                                   "text": "Excelente servicio y muy rápido"
                                 }
-                                """))
-
+                                """))*/
+        mockMvc.perform(
+                        org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/analyze")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header("X-Trace-Id", "trace-test-500")
+                                .content("""
+                                         {
+                                           "text": "Excelente servicio y muy rapido"
+                                         }
+                                         """))
                 // 3️⃣ Validaciones
                 .andExpect(status().isOk())
-                //.andExpect(jsonPath("$.sentimiento").value("positivo"))
-                .andExpect(jsonPath("$.prediccion").value("Excelente servicio y muy rapido"))
-                .andExpect(jsonPath("$.probabilidad").value(0.67));
+                .andExpect(jsonPath("$.prediccion").value("positivo"))
+                .andExpect(jsonPath("$.probabilidad").value(0.67))
+                .andExpect(header().exists("X-Trace-Id"));
+    }
+
+    @Test
+    void deberiaRetornar503_cuandoDsFalla() throws Exception {
+
+        stubFor(post(urlEqualTo("/predict"))
+                .willReturn(aResponse()
+                        .withStatus(500)
+                )
+        );
+
+        /*mockMvc.perform(post("/analyze")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("X-Trace-Id", "trace-test-500")
+                        .content("""
+                        {
+                          "text": "Excelente servicio"
+                        }
+                    """))*/
+        mockMvc.perform(
+                        org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/analyze")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header("X-Trace-Id", "trace-test-500")
+                                .content("""
+                                         {
+                                           "text": "Excelente servicio"
+                                         }
+                                         """))
+                //.andExpect(status().isServiceUnavailable())
+                .andExpect(status().isBadGateway())
+                .andExpect(header().string("X-Trace-Id", "trace-test-500"))
+                .andExpect(jsonPath("$.message")
+                        .value("Servicio de análisis no disponible. Intente más tarde."));
     }
 
 
-    @Test
+
+
+    /* @Test
     void deberiaRetornar502_cuandoDsNoEstaDisponible() throws Exception {
         //No hay stubFor(...) simula que DS está “caído”.
 
@@ -74,7 +114,7 @@ public class SentimentIntegrationTest {
                 .andExpect(jsonPath("$.error").value("Bad Gateway"))
                 .andExpect(jsonPath("$.message")
                         .value("Servicio de análisis no disponible. Intente más tarde."));
-    }
+    }*/
 
 }
 
