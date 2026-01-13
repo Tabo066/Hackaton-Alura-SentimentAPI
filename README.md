@@ -11,14 +11,14 @@ Probabilidad de confianza
 Gráfico de torta por lote
 Descarga CSV con resultados
 
-Cómo levantar el proyecto (1 comando)
-Clonar el repositorio (o descomprimir el ZIP):
-git clone <URL> SentimentFull
-cd SentimentFull
+Cómo levantar el proyecto (1 comando)<br>
+Clonar el repositorio (o descomprimir el ZIP):<br>
+git clone <URL> SentimentFull<br>
+cd SentimentFull<br>
 
-Levantar todos los servicios (desde la raiz del proyecto en la terminal de vscode):
-docker-compose up --build
-Esperar hasta ver:
+Levantar todos los servicios (desde la raiz del proyecto en la terminal de vscode):<br>
+docker-compose up --build<br>
+Esperar hasta ver:<br>
 Todos los servicios iniciados
 
 | Servicio       | URL                          | Descripción                              |
@@ -44,18 +44,17 @@ curl -X POST http://localhost:8080/sentiment \
 Respuesta: 
 { "prevision": "positivo", "probabilidad": 0.87 }
 
-Revisar el contenido de la base de datos (PostgreSQL)
-Dentro del cmd ejecutar como admin:
-docker exec -it sentiment-postgres psql -U postgres -d sentimentdb
-
--- Ver tablas
-\dt
--- Ver contenido de la tabla
-SELECT * FROM prediction;
--- Contar registros
-SELECT COUNT(*) FROM prediction;
--- Salir
-\q
+ Revisar el contenido de la base de datos (PostgreSQL)<br>
+Dentro del cmd ejecutar como admin:<br>
+docker exec -it sentiment-postgres psql -U postgres -d sentimentdb<br>
+-- Ver tablas:<br>
+\dt<br>
+-- Ver contenido de la tabla:<br>
+SELECT * FROM prediction;<br>
+-- Contar registros:<br>
+SELECT COUNT(*) FROM prediction;<br>
+-- Salir:<br>
+\q<br>
 
 Herramientas utilizadas:
 
@@ -72,18 +71,18 @@ Herramientas utilizadas:
 
  Estructura del proyecto
 
-SentimentFull/
-├── docker-compose.yml          ← orquestador único
-├── backend/
-│   ├── Dockerfile
-│   └── target/Sentiment-API-0.0.1-SNAPSHOT.jar
-├── ds/
-│   ├── Dockerfile
-│   ├── app.py
-│   ├── main.py
-│   └── requirements.txt
-├── frontend/
-│   ├── Dockerfile
-│   ├── app.py
-│   └── requirements.txt
-└── README.md                   ← este archivo
+SentimentFull/<br>
+├── docker-compose.yml          ← orquestador único<br>
+├── backend/<br>
+│   ├── Dockerfile<br>
+│   └── target/Sentiment-API-0.0.1-SNAPSHOT.jar<br>
+├── ds/<br>
+│   ├── Dockerfile<br>
+│   ├── app.py<br>
+│   ├── main.py<br>
+│   └── requirements.txt<br>
+├── frontend/<br>
+│   ├── Dockerfile<br>
+│   ├── app.py<br>
+│   └── requirements.txt<br>
+└── README.md                   ← este archivo<br>
