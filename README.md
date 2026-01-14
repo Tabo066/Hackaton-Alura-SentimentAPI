@@ -16,7 +16,7 @@ Clonar el repositorio (o descomprimir el ZIP):<br>
 git clone <URL> SentimentFull<br>
 cd SentimentFull<br>
 
-Levantar todos los servicios (desde la raiz del proyecto en la terminal de vscode):<br>
+Levantar todos los servicios (desde la raiz del proyecto en powershell):<br>
 docker-compose up --build<br>
 Esperar hasta ver:<br>
 Todos los servicios iniciados
