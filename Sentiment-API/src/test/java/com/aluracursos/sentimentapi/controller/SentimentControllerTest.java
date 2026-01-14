@@ -1,5 +1,6 @@
 package com.aluracursos.sentimentapi.controller;
 
+import com.aluracursos.sentimentapi.client.ds.DsClient;
 import com.aluracursos.sentimentapi.dto.SentimentResponse;
 import com.aluracursos.sentimentapi.service.SentimentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,8 +8,8 @@ import com.aluracursos.sentimentapi.dto.SentimentRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -28,8 +29,12 @@ class SentimentControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockitoBean
+    //@MockBean
+    @MockBean
     private SentimentService sentimentService;
+
+    @MockBean
+    private DsClient dsClient;
 
     //JSON inline
     @Test
@@ -63,6 +68,6 @@ class SentimentControllerTest {
                                 """))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.text")
-                        .value("El texto debe tener entre 10 y 100 caracteres"));
+                        .value("El texto debe tener al menos 10 caracteres"));
     }
 }
