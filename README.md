@@ -4,14 +4,14 @@ README – Proyecto Sentiment Analysis
 Integración completa: Backend Java + DS Python + Frontend Streamlit + PostgreSQL
 Entregable: Producto funcional con Docker Compose
 
-¿Qué hace este proyecto?
+# ¿Qué hace este proyecto?
 Analiza el sentimiento de textos en español y devuelve:
 Predicción (positivo/negativo/neutro)
 Probabilidad de confianza
 Gráfico de torta por lote
 Descarga CSV con resultados
 
-Cómo levantar el proyecto (1 comando)<br>
+# Cómo levantar el proyecto (1 comando)<br>
 Clonar el repositorio (o descomprimir el ZIP):<br>
 git clone <URL> SentimentFull<br>
 cd SentimentFull<br>
@@ -27,7 +27,7 @@ Todos los servicios iniciados
 | **API Java**   | <http://localhost:8080>      | REST con integración DS real             |
 | **DS Swagger** | <http://localhost:8000/docs> | Documentación interactiva del DS         |
 
- Cómo probar el funcionamiento
+# Cómo probar el funcionamiento
 1. Texto individual (UI)
 Abrir http://localhost:8500
 Escribir un texto → Analizar
@@ -44,7 +44,7 @@ curl -X POST http://localhost:8080/sentiment \
 Respuesta: 
 { "prevision": "positivo", "probabilidad": 0.87 }
 
- Revisar el contenido de la base de datos (PostgreSQL)<br>
+# Revisar el contenido de la base de datos (PostgreSQL)<br>
 Dentro del cmd ejecutar como admin:<br>
 docker exec -it sentiment-postgres psql -U postgres -d sentimentdb<br>
 -- Ver tablas:<br>
@@ -56,7 +56,7 @@ SELECT COUNT(*) FROM prediction;<br>
 -- Salir:<br>
 \q<br>
 
-Herramientas utilizadas:
+# Herramientas utilizadas:
 
 | Herramienta                 | Uso                    |
 | --------------------------- | ---------------------- |
@@ -69,7 +69,7 @@ Herramientas utilizadas:
 | **Matplotlib**              | Gráficos en frontend   |
 | **Flyway**                  | Migraciones (opcional) |
 
- Estructura del proyecto
+ # Estructura del proyecto
 
 SentimentFull/<br>
 ├── docker-compose.yml          ← orquestador único<br>
