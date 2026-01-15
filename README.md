@@ -28,23 +28,25 @@ Todos los servicios iniciados
 | **DS Swagger** | <http://localhost:8000/docs> | Documentación interactiva del DS         |
 
 # Cómo probar el funcionamiento
-1. Texto individual (UI)
-Abrir http://localhost:8500
-Escribir un texto → Analizar
-Ver predicción y probabilidad
-2. CSV masivo (UI)
-Arrastrar un .csv con columna texto
-El archivo .csv debe estar en formato UTF-8 para ser procesado
-Click en Procesar archivo
-Ver tabla + gráfico de torta + descarga de resultados
-3. API directa (cmd o curl)
-curl -X POST http://localhost:8080/sentiment \
-  -H "Content-Type: application/json" \
-  -d '{"text":"me encanta este producto"}'
-Respuesta: 
+1. Texto individual (UI)<br>
+Abrir http://localhost:8500<br>
+Escribir un texto → Analizar<br>
+Ver predicción y probabilidad<br>
+2. CSV masivo (UI)<br>
+Arrastrar un .csv con columna texto<br>
+El archivo .csv debe estar en formato UTF-8 para ser procesado<br>
+Click en Procesar archivo<br>
+Ver tabla + gráfico de torta + descarga de resultados<br>
+3. API directa (cmd o curl)<br>
+curl -X POST http://localhost:8080/sentiment \<br>
+  -H "Content-Type: application/json" \<br>
+  -d '{"text":"me encanta este producto"}'<br>
+Respuesta: <br>
 { "prevision": "positivo", "probabilidad": 0.87 }
 
 # Revisar el contenido de la base de datos (PostgreSQL)<br>
+Esta base de datos almacena las consultas individuales en la tabla prediction<br>
+con lo campos "id, text, prevision, probabilidad, created_at"<br>
 Dentro del cmd ejecutar como admin:<br>
 docker exec -it sentiment-postgres psql -U postgres -d sentimentdb<br>
 -- Ver tablas:<br>
