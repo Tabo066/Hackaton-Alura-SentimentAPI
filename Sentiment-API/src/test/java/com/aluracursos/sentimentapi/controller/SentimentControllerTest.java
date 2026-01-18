@@ -1,10 +1,12 @@
 package com.aluracursos.sentimentapi.controller;
 
 import com.aluracursos.sentimentapi.client.ds.DsClient;
+//import com.aluracursos.sentimentapi.dto.SentimentResponse;
+import com.aluracursos.sentimentapi.dto.SentimentRequest;
 import com.aluracursos.sentimentapi.dto.SentimentResponse;
 import com.aluracursos.sentimentapi.service.SentimentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.aluracursos.sentimentapi.dto.SentimentRequest;
+//import com.aluracursos.sentimentapi.dto.SentimentRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

@@ -36,7 +36,7 @@ public class SentimentService {
     }
 
     private SentimentResponse mapToSentimentResponse( DsPredictResponse dsResponse){
-        return new SentimentResponse( dsResponse.getSentimiento(),
+        return new SentimentResponse( dsResponse.getPrediccion(),
                                       dsResponse.getProbabilidad()
                                     );
     }

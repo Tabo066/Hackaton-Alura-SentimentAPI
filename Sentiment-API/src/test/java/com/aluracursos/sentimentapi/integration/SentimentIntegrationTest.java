@@ -23,28 +23,26 @@ public class SentimentIntegrationTest {
     @Test
     void deberiaRetornarSentimientoPositivo_cuandoDsResponde200() throws Exception{
         // 1️⃣ Simulamos la respuesta del DS
-         stubFor(com.github.tomakehurst.wiremock.client.WireMock.post(urlEqualTo("/predict"))
+        //stubFor(com.github.tomakehurst.wiremock.client.WireMock.post(urlEqualTo("/predict"))
+        stubFor(com.github.tomakehurst.wiremock.client.WireMock.post(urlEqualTo("/analyze"))
                  .willReturn(aResponse()
                  .withStatus(200)
                  .withHeader("Content-Type","application/json")
-                 .withBody("""
+                         .withBody("""
                          {
-                            "texto":"Excelente servicio y muy rapido",
-                            "sentimiento":"positivo",
-                            "probabilidad":0.67,
-                            "modelo":"sentimiento-es-v2"
+                            "prediccion":"positivo",
+                            "probabilidad":0.67                           
                          }
                          """)));
+                        /* .withBody("""
+                         {
+                           "texto":"Excelente servicio y muy rapido",
+                            "sentimiento":"positivo",
+                            "probabilidad":0.67,
+                           "modelo":"sentimiento-es-v2"
+                         }
+                         """)));*/
 
-         //aqui ira el MockMvc / WebTestClient (siguiente paso)
-        // 2️⃣ Llamamos a TU API real
-        /*mockMvc.perform(post("/analyze")
-                        .contentType("application/json")
-                        .content("""
-                                {
-                                  "text": "Excelente servicio y muy rápido"
-                                }
-                                """))*/
         mockMvc.perform(
                         org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/analyze")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -64,20 +62,14 @@ public class SentimentIntegrationTest {
     @Test
     void deberiaRetornar503_cuandoDsFalla() throws Exception {
 
-        stubFor(post(urlEqualTo("/predict"))
+        //stubFor(post(urlEqualTo("/predict"))
+        stubFor(post(urlEqualTo("/analyze"))
+
                 .willReturn(aResponse()
                         .withStatus(500)
                 )
         );
 
-        /*mockMvc.perform(post("/analyze")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .header("X-Trace-Id", "trace-test-500")
-                        .content("""
-                        {
-                          "text": "Excelente servicio"
-                        }
-                    """))*/
         mockMvc.perform(
                         org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/analyze")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -93,29 +85,6 @@ public class SentimentIntegrationTest {
                 .andExpect(jsonPath("$.message")
                         .value("Servicio de análisis no disponible. Intente más tarde."));
     }
-
-
-
-
-    /* @Test
-    void deberiaRetornar502_cuandoDsNoEstaDisponible() throws Exception {
-        //No hay stubFor(...) simula que DS está “caído”.
-
-        String requestBody = """
-        {
-          "text": "Excelente servicio"
-        }
-        """;
-
-        mockMvc.perform(post("/analyze")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andExpect(status().isBadGateway())
-                .andExpect(jsonPath("$.error").value("Bad Gateway"))
-                .andExpect(jsonPath("$.message")
-                        .value("Servicio de análisis no disponible. Intente más tarde."));
-    }*/
-
 }
 
 

@@ -37,7 +37,8 @@ public class DsClient {
 
         try{
             return webClient.post()
-                    .uri("/predict")
+                    //.uri("/predict")
+                    .uri("/analyze")
                     .bodyValue(request)
                     .retrieve()
                     .bodyToMono(DsPredictResponse.class)
