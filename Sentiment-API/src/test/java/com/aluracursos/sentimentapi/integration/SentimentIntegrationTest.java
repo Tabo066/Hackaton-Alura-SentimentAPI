@@ -24,7 +24,8 @@ public class SentimentIntegrationTest {
     void deberiaRetornarSentimientoPositivo_cuandoDsResponde200() throws Exception{
         // 1️⃣ Simulamos la respuesta del DS
         //stubFor(com.github.tomakehurst.wiremock.client.WireMock.post(urlEqualTo("/predict"))
-        stubFor(com.github.tomakehurst.wiremock.client.WireMock.post(urlEqualTo("/analyze"))
+        //stubFor(com.github.tomakehurst.wiremock.client.WireMock.post(urlEqualTo("/analyze"))
+        stubFor(com.github.tomakehurst.wiremock.client.WireMock.post(urlEqualTo("/v2/analyze"))
                  .willReturn(aResponse()
                  .withStatus(200)
                  .withHeader("Content-Type","application/json")
@@ -63,7 +64,8 @@ public class SentimentIntegrationTest {
     void deberiaRetornar503_cuandoDsFalla() throws Exception {
 
         //stubFor(post(urlEqualTo("/predict"))
-        stubFor(post(urlEqualTo("/analyze"))
+        //stubFor(post(urlEqualTo("/analyze"))
+        stubFor(post(urlEqualTo("/v2/analyze"))
 
                 .willReturn(aResponse()
                         .withStatus(500)

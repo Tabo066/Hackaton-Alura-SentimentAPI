@@ -16,17 +16,13 @@ import java.time.Duration;
 public class DsClient {
 
     private final WebClient webClient;
-
-   /* public DsClient() {
-        this.webClient = WebClient.builder()
-                .baseUrl("http://localhost:8000")
-                .build();
-    }*/
+    private final String baseUrl;
 
     public DsClient(
             WebClient.Builder webClientBuilder,
             @Value("${ds.api.base-url}") String baseUrl
     ) {
+        this.baseUrl = baseUrl;
         this.webClient = webClientBuilder
                 .baseUrl(baseUrl)
                 .build();
@@ -36,9 +32,10 @@ public class DsClient {
     public DsPredictResponse predict(DsPredictRequest request) {
 
         try{
+            log.info("Calling DS v2 at {}/v2/analyze", baseUrl);
+
             return webClient.post()
-                    //.uri("/predict")
-                    .uri("/analyze")
+                    .uri("/v2/analyze")
                     .bodyValue(request)
                     .retrieve()
                     .bodyToMono(DsPredictResponse.class)
