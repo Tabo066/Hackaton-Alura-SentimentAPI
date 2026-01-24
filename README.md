@@ -4,20 +4,20 @@ README – Proyecto Sentiment Analysis
 Integración completa: Backend Java + DS Python + Frontend Streamlit + PostgreSQL
 Entregable: Producto funcional con Docker Compose
 
-# ¿Qué hace este proyecto?
+## ¿Qué hace este proyecto?
 Analiza el sentimiento de textos en español y devuelve:
 Predicción (positivo/negativo/neutro)
 Probabilidad de confianza
 Gráfico de torta por lote
 Descarga CSV con resultados
 
-# Cómo levantar el proyecto (1 comando)<br>
+## Cómo levantar el proyecto (1 comando)<br>
 Clonar el repositorio (o descomprimir el ZIP):<br>
 git clone <URL> SentimentFull<br>
 cd SentimentFull<br>
 
 Levantar todos los servicios (desde la raiz del proyecto en powershell):<br>
-docker-compose up --build<br>
+# `docker-compose up --build`<br>
 Esperar hasta ver:<br>
 Todos los servicios iniciados
 
@@ -27,7 +27,7 @@ Todos los servicios iniciados
 | **API Java**   | <http://localhost:8080>      | REST con integración DS real             |
 | **DS Swagger** | <http://localhost:8000/docs> | Documentación interactiva del DS         |
 
-# Cómo probar el funcionamiento
+## Cómo probar el funcionamiento
 1. Texto individual (UI)<br>
 Abrir http://localhost:8500<br>
 Escribir un texto → Analizar<br>
@@ -44,21 +44,35 @@ curl -X POST http://localhost:8080/sentiment \<br>
 Respuesta: <br>
 { "prevision": "positivo", "probabilidad": 0.87 }
 
-# Revisar el contenido de la base de datos (PostgreSQL)<br>
+## Pestaña de Estadísticas
+La pestaña "Estadísticas" muestra un dashboard en tiempo real con métricas de las predicciones almacenadas en la base de datos PostgreSQL durante las últimas 24 horas.<br>
+Funcionalidades:<br>
+Total de predicciones: cantidad de análisis realizados en el período.<br>
+Porcentaje de positivos: proporción de sentimientos positivos respecto al total.<br>
+Conteo por categoría: distribución absoluta de predicciones positivas, negativas y neutras.<br>
+Gráfico de barras: visualización interactiva de la distribución de sentimientos.<br>
+Cómo funciona:<br>
+El frontend consulta el endpoint GET /stats del backend.<br>
+El backend ejecuta una query agregada sobre la tabla prediction filtrando registros de las últimas 24 horas.<br>
+Los datos se normalizan en el frontend para garantizar la correcta visualización independientemente del formato de almacenamiento.<br>
+El porcentaje de positivos se calcula dinámicamente en el cliente para mayor precisión.<br>
+
+## Revisar el contenido de la base de datos (PostgreSQL)<br>
 Esta base de datos almacena las consultas individuales en la tabla prediction<br>
 con lo campos "id, text, prevision, probabilidad, created_at"<br>
 Dentro del cmd ejecutar como admin:<br>
 docker exec -it sentiment-postgres psql -U postgres -d sentimentdb<br>
 -- Ver tablas:<br>
-\dt<br>
+# `\dt`<br>
 -- Ver contenido de la tabla:<br>
-SELECT * FROM prediction;<br>
+# `SELECT * FROM prediction;`<br>
 -- Contar registros:<br>
-SELECT COUNT(*) FROM prediction;<br>
+# `SELECT COUNT(*) FROM prediction;`<br>
 -- Salir:<br>
-\q<br>
+# `\q`<br>
 
-# Herramientas utilizadas:
+
+## Herramientas utilizadas:
 
 | Herramienta                 | Uso                    |
 | --------------------------- | ---------------------- |
@@ -71,20 +85,3 @@ SELECT COUNT(*) FROM prediction;<br>
 | **Matplotlib**              | Gráficos en frontend   |
 | **Flyway**                  | Migraciones (opcional) |
 
- # Estructura del proyecto
-
-SentimentFull/<br>
-├── docker-compose.yml          ← orquestador único<br>
-├── backend/<br>
-│   ├── Dockerfile<br>
-│   └── target/Sentiment-API-0.0.1-SNAPSHOT.jar<br>
-├── ds/<br>
-│   ├── Dockerfile<br>
-│   ├── app.py<br>
-│   ├── main.py<br>
-│   └── requirements.txt<br>
-├── frontend/<br>
-│   ├── Dockerfile<br>
-│   ├── app.py<br>
-│   └── requirements.txt<br>
-└── README.md                   ← este archivo<br>
