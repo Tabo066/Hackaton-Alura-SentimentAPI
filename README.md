@@ -17,7 +17,7 @@ git clone <URL> SentimentFull<br>
 cd SentimentFull<br>
 
 Levantar todos los servicios (desde la raiz del proyecto en powershell):<br>
-# `docker-compose up --build`<br>
+### `docker-compose up --build`<br>
 Esperar hasta ver:<br>
 Todos los servicios iniciados
 
@@ -63,13 +63,13 @@ con lo campos "id, text, prevision, probabilidad, created_at"<br>
 Dentro del cmd ejecutar como admin:<br>
 docker exec -it sentiment-postgres psql -U postgres -d sentimentdb<br>
 -- Ver tablas:<br>
-# `\dt`<br>
+### `\dt`<br>
 -- Ver contenido de la tabla:<br>
-# `SELECT * FROM prediction;`<br>
+### `SELECT * FROM prediction;`<br>
 -- Contar registros:<br>
-# `SELECT COUNT(*) FROM prediction;`<br>
+### `SELECT COUNT(*) FROM prediction;`<br>
 -- Salir:<br>
-# `\q`<br>
+### `\q`<br>
 
 
 ## Herramientas utilizadas:
